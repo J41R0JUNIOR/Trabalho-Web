@@ -4,6 +4,10 @@ function indexView(req, res){
     res.render('index.html');
 }
 
+function logarView(req, res){
+    res.render('logar.html');
+}
+
 function criarContaView(req, res){
     res.render('usuario_cadastro.html');
 }
@@ -13,7 +17,7 @@ function cadastrarUsuario(req, res){
         email: req.body.email,
         senha: req.body.senha,
         perfil: req.body.perfil
-    }
+    };
 
     Usuario.create(usuario).then(() => {
         res.redirect('/?cadastrar_usuario=true');
@@ -42,5 +46,6 @@ module.exports = {
     indexView, 
     criarContaView, 
     cadastrarUsuario,
-    acessarUsuario
+    acessarUsuario,
+    logarView
 }

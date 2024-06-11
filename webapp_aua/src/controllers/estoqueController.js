@@ -9,7 +9,7 @@ function logarView(req, res){
 }
 
 function criarContaView(req, res){
-    res.render('usuario_cadastro.html');
+    res.render('usuario_cadastro.html'); 
 }
 
 function cadastrarUsuario(req, res){
@@ -32,9 +32,11 @@ function acessarUsuario(req, res) {
     
     Usuario.findOne({ where: { email: email } }).then(usuario => {
         if (usuario && usuario.senha === senha) {
-            res.send('Login realizado com sucesso!');
+            // res.send('Login realizado com sucesso!');
+            res.redirect('/?logar_conta=true');
         } else {
-            res.status(401).send('Credenciais inválidas');
+            // res.status(401).send('Credenciais inválidas');
+            res.redirect('/?logar_conta=false');
         }
     }).catch(err => {
         console.log(err);

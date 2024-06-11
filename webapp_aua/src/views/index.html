@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,10 +10,18 @@
     <style>
         body {
             background-color: #f1f1f1;
+            font-family: sans-serif;
         }
+
         .header {
             border-bottom: 2px solid #ccc;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
         }
+
         .logo {
             width: 50px;
             height: 50px;
@@ -22,19 +31,58 @@
             justify-content: center;
             font-weight: bold;
         }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .form-check-input {
+            width: 40px;
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 20px;
+            border: none;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .form-check-input:checked {
+            background-color: #4CAF50;
+            position: relative;
+        }
+
+        .form-check-input:checked::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(10%, -50%);
+            width: 15px;
+            height: 15px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
         .slogan {
             font-size: 24px;
             margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
         }
+
         .shelter-item {
             background-color: #fff;
             border: 1px solid #ccc;
             border-radius: 5px;
-            display: flex;
-            align-items: center;
             padding: 10px;
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
         }
+
         .image-placeholder {
             width: 50px;
             height: 50px;
@@ -46,43 +94,90 @@
             color: white;
             margin-right: 15px;
         }
+
+        .shelter-name {
+            font-weight: bold;
+            flex-grow: 1;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        @media (min-width: 576px) {
+            .shelter-item {
+                padding: 20px;
+            }
+
+            .image-placeholder {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .shelter-item {
+                padding: 20px 30px;
+            }
+
+            .image-placeholder {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
     </style>
 </head>
+
 <body>
     <header class="header p-3 bg-light d-flex justify-content-between align-items-center">
-        <form action="/logar_conta" method="post">
-            <div class="logo">Logo</div>
-        </form>
-        <nav>
+        <div class="logo">Logo</div>
+        <nav class="d-flex align-items-center">
             <a href="#" class="text-dark mx-2">Início</a>
             <a href="#" class="text-dark mx-2">Pesquisar abrigo</a>
-            <div class="form-check form-switch d-inline-block mx-2">
-                <input class="form-check-input" type="checkbox" id="nightModeSwitch">
-                <label class="form-check-label" for="nightModeSwitch">Modo noturno</label>
+            <div class="d-flex align-items-center">
+                <div class="form-check form-switch d-inline-block mx-2">
+                    <input class="form-check-input" type="checkbox" id="nightModeSwitch" />
+                    <label class="form-check-label" for="nightModeSwitch">Modo noturno</label>
+                </div>
+                <a href="/logar_conta" class="btn btn-primary mx-2">Logar</a>
             </div>
-            <a href="/logar_conta" class="btn btn-primary mx-2">Logar</a>
         </nav>
     </header>
-    <div class="container mt-4">
+    <div class="container mt-5">
         <div class="slogan text-center">Frase de Efeito</div>
         <ul class="list-unstyled">
-            <li class="shelter-item d-flex align-items-center mb-3">
-                <div class="image-placeholder">Imagem</div>
+            <li class="shelter-item d-flex align-items-center mb-2">
+                <div class="image-placeholder">Imagem abrigo</div>
                 <div class="shelter-name">Nome do Abrigo</div>
             </li>
-            <li class="shelter-item d-flex align-items-center mb-3">
-                <div class="image-placeholder">Imagem</div>
+            <li class="shelter-item d-flex align-items-center mb-2">
+                <div class="image-placeholder">Imagem abrigo</div>
                 <div class="shelter-name">Nome do Abrigo</div>
             </li>
-            <li class="shelter-item d-flex align-items-center mb-3">
-                <div class="image-placeholder">Imagem</div>
+            <li class="shelter-item d-flex align-items-center mb-2">
+                <div class="image-placeholder">Imagem abrigo</div>
                 <div class="shelter-name">Nome do Abrigo</div>
             </li>
-            <li class="shelter-item d-flex align-items-center mb-3">
-                <div class="image-placeholder">Imagem</div>
+            <li class="shelter-item d-flex align-items-center mb-2">
+                <div class="image-placeholder">Imagem abrigo</div>
                 <div class="shelter-name">Nome do Abrigo</div>
             </li>
         </ul>
     </div>
 </body>
+
 </html>

@@ -177,29 +177,19 @@
                     <input class="form-check-input" type="checkbox" id="nightModeSwitch" />
                     <label class="form-check-label" for="nightModeSwitch">Modo noturno</label>
                 </div>
-                <a href="/logar_conta" class="btn btn-primary mx-2">Logar</a>
+                    <a href="/logar_conta" class="btn btn-primary mx-2">Logar</a>
             </div>
         </nav>
     </header>
     <div class="container mt-5">
         <div class="slogan text-center">Frase de Efeito</div>
         <ul class="list-unstyled">
+            {{#usuarios}}
             <li class="shelter-item d-flex align-items-center mb-2">
-                <div class="image-placeholder">Imagem abrigo</div>
-                <div class="shelter-name">Nome do Abrigo</div>
+                <div class="image-placeholder"><img src="{{perfil}}" alt="Imagem do abrigo" style="width: 50px; height: 50px; border-radius: 50%;"></div>
+                <div class="shelter-name">{{email}}</div>
             </li>
-            <li class="shelter-item d-flex align-items-center mb-2">
-                <div class="image-placeholder">Imagem abrigo</div>
-                <div class="shelter-name">Nome do Abrigo</div>
-            </li>
-            <li class="shelter-item d-flex align-items-center mb-2">
-                <div class="image-placeholder">Imagem abrigo</div>
-                <div class="shelter-name">Nome do Abrigo</div>
-            </li>
-            <li class="shelter-item d-flex align-items-center mb-2">
-                <div class="image-placeholder">Imagem abrigo</div>
-                <div class="shelter-name">Nome do Abrigo</div>
-            </li>
+            {{/usuarios}}
         </ul>
     </div>
 

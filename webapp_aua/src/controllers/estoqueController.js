@@ -27,6 +27,7 @@ function cadastrarUsuario(req, res){
     });
 }
 
+
 function acessarUsuario(req, res) {
     const { email, senha } = req.body;
     

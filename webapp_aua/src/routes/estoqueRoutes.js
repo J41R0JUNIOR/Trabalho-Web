@@ -7,6 +7,7 @@ const estoqueController = require('../controllers/estoqueController');
 router.get('/', estoqueController.indexView);
 router.get('/criar_conta', estoqueController.criarContaView); 
 router.get('/logar_conta', estoqueController.logarView);
+router.get('/animais', estoqueController.animaisView);
 
 //ação em uma view
 router.post('/cadastrar', estoqueController.cadastrarUsuario);

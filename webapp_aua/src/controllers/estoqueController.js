@@ -12,6 +12,10 @@ function criarContaView(req, res){
     res.render('usuario_cadastro.html'); 
 }
 
+function animaisView(req,res) {
+    res.render('animais.html');
+}
+
 function cadastrarUsuario(req, res){
     let usuario = {
         email: req.body.email,
@@ -50,5 +54,6 @@ module.exports = {
     criarContaView, 
     cadastrarUsuario,
     acessarUsuario,
-    logarView
+    logarView,
+    animaisView
 }

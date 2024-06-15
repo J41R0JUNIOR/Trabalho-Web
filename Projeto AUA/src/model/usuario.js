@@ -25,7 +25,7 @@ const Usuario = database.define('usuario', {
         type: Sequelize.DataTypes.INTEGER,
         allowNull: false 
     },
-    numeroAbrigo: {
+    numero: {
         type: Sequelize.DataTypes.INTEGER,
         allowNull: false 
     },

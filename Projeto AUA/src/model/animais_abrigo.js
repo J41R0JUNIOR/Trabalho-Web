@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const database = require('../db');
 
-const Anotacao = database.define('animal', {
+const Animal = database.define('animal', {
     id_animal: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -24,27 +24,6 @@ const Anotacao = database.define('animal', {
         type: Sequelize.STRING,
         allowNull: false
     }
-    // titulo: {
-    //     type: Sequelize.STRING,
-    //     allowNull: false
-    // },
-    // subtitulo: {
-    //     type: Sequelize.STRING,
-    //     allowNull: false
-    // },
-    // texto: {
-    //     type: Sequelize.STRING,
-    //     allowNull: false
-    // },
-    // estilo: {
-    //     type: Sequelize.STRING,
-    //     allowNull: false
-    // },
-    // indicador_ativo: {
-    //     type: Sequelize.INTEGER,
-    //     allowNull: false
-    // }
-    
 });
 
-module.exports = Anotacao;
+module.exports = Animal;

@@ -6,7 +6,7 @@ function cadastrarUsuario(req, res) {
         senha: req.body.senha,
         nome: req.body.nome,
         cep: req.body.cep,
-        numero: req.body.numero,  // Alterado aqui
+        numero: req.body.numero, 
         complemento: req.body.complemento,
         cnpj: req.body.cnpj
     };

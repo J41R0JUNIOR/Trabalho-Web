@@ -18,9 +18,7 @@
             <div class="offset-4 col-4 text-end">
                 <span>Olá, usuário</span>
                 <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-
+                    <button id="btnGroupDrop1" type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                         <li><a class="dropdown-item" href="#">Configurações</a></li>
@@ -32,93 +30,88 @@
 
         <div class="row mt-5">
             <div class="col-2">
-                <button class="btn btn-primary">Novo Produto</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoAnimalModal">Novo Animal</button>
             </div>
         </div>
 
         <div class="row mt-3">
             <div class="col-12">
 
-                <div class="alert alert-info">
-                    Nenhum produto cadastrado.
-                </div>
+                <main class="col-9 offset-3 ml-sm-auto px-md-4 py-4">
+                    <div class="row my-4">
 
-                <table class="table table-hover">
+                        {{#animais}}
+                        <div class="col-3 mt-3">
+                            <div class="card">
+                                <h5 class="card-header {{estilo}}">{{nome}}</h5>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{especie}}</h5>
+                                    <p class="card-text">{{descricao}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {{/animais}}
+    
+                    </div>
+                </main>
+               
+                <!-- <table class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Produto</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Espécie</th>
                             <th scope="col">Descrição</th>
-                            <th scope="col">Quantidade</th>
-                            <th scope="col"> </th>
                         </tr>
                     </thead>
                     <tbody>
+                        {{#each animais}}
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Exemplo 1</td>
-                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                            <td class="text-center">11</td>
-                            <td class="text-end">
-                                <a href="" class="btn btn-warning">Editar</a>
-                                <a href="" class="btn btn-danger">Excluir</a>
-                            </td>
+                            <th scope="row">{{id_animal}}</th>
+                            <td>{{nome}}</td>
+                            <td>{{especie}}</td>
+                            <td>{{descricao}}</td>
                         </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Exemplo 1</td>
-                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                            <td class="text-center">11</td>
-                            <td class="text-end">
-                                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modal-editar-produto">Editar</button>
-                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-excluir-produto">Excluir</button>
-                            </td>
-                        </tr>
+                        {{/each animais}}
                     </tbody>
-                </table>
+                </table> -->
+            
+          
             </div>
         </div>
-
     </div>
 
-    <!-- Modal Editar Produto-->
-    <div class="modal fade" id="modal-editar-produto" tabindex="-1" aria-labelledby="modal-editar-produto" aria-hidden="true">
+    <!-- Modal Novo Animal -->
+    <div class="modal fade" id="novoAnimalModal" tabindex="-1" aria-labelledby="novoAnimalModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar produto</h5>
+                    <h5 class="modal-title" id="novoAnimalModalLabel">Cadastrar Novo Animal</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Confirmar</button>
-                </div>
+                <form action="/cadastrar_animal" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nome" name="nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="especie" class="form-label">Espécie</label>
+                            <input type="text" class="form-control" id="especie" name="especie" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descricao" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="descricao" name="descricao" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
-    <!-- Modal Excluir Produto-->
-    <div class="modal fade" id="modal-excluir-produto" tabindex="-1" aria-labelledby="modal-excluir-produto" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Excluir produto</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Confirmar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </body>
 
 </html>

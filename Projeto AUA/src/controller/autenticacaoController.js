@@ -16,7 +16,7 @@ async function autenticar(req, res){
     }
     else{
         let erro_autenticacao = true;
-        res.render('index.html', {erro_autenticacao});
+        res.render('logar.html', {erro_autenticacao});
     }
 
 }

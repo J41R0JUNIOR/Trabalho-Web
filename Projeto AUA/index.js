@@ -24,7 +24,7 @@ app.use('/', require('./src/routes/animalRoutes'));
 app.use('/', require('./src/routes/usuarioRoutes'));
 app.use('/', require('./src/routes/autenticacaoRoutes'));
 
-db.sync(() => console.log(`Banco de dados conectado`));
+db.sync(() => console.log(`Banco de dados conectado`)); 
 
 const app_port = 8080
 app.listen(app_port, function () {

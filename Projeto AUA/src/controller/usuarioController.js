@@ -12,12 +12,12 @@ function cadastrarUsuario(req, res) {
     };
 
     Usuario.create(usuario).then(() => {
-        let sucesso = true;
-        res.render("index.html", { sucesso });
+        // res.render('usuario_cadastro.html', { sucesso: true });
+        sucesso = true
+        listarUsuarios(req, res, sucesso);
     }).catch((err) => {
         console.log(err);
-        let erro = true;
-        res.render("index.html", { erro });
+        res.render('usuario_cadastro.html', { erro: true });
     });
 }
 
@@ -29,8 +29,8 @@ function listarUsuarios(req, res) {
     });
 }
 
-function logarView(req, res){
-    res.render('logar.html');
+function logarView(req, res, estado){
+    res.render('logar.html', { estado });
 }
 
 function criarContaView(req, res){

@@ -111,6 +111,11 @@
             <div class="col-md-6">
                 <div class="login-container">
                     <h1 class="text-center" style="font-weight: bold;">Cadastre seu abrigo</h1>
+                    {{#erro}}
+                    <div class="alert alert-danger">
+                      Erro ao cadastrar usuário!
+                    </div>
+                    {{/erro}}
                     <form action="/cadastrar_usuario" method="post" class="mt-4">
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome:</label>
@@ -150,5 +155,17 @@
             </div>
         </div>
     </div>
+    <script>
+        const nightModeSwitch = document.getElementById('nightModeSwitch');
+        const body = document.body;
+
+        nightModeSwitch.addEventListener('change', function () {
+            if (this.checked) {
+                body.classList.add('dark-mode');
+            } else {
+                body.classList.remove('dark-mode');
+            }
+        });
+    </script>
 </body>
 </html>

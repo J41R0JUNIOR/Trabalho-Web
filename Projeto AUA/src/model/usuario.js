@@ -21,10 +21,23 @@ const Usuario = database.define('usuario', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    data_nascimento: {
-        type: Sequelize.STRING,
-        allowNull: false
+    cep: {
+        type: Sequelize.DataTypes.INTEGER,
+        allowNull: false 
+    },
+    numeroAbrigo: {
+        type: Sequelize.DataTypes.INTEGER,
+        allowNull: false 
+    },
+    complemento: {
+        type: Sequelize.DataTypes.INTEGER,
+        allowNull: true
+    },
+    cnpj: {
+        type: Sequelize.DataTypes.INTEGER,
+        allowNull: true
     }
+ 
 });
 
 module.exports = Usuario;
@@ -52,10 +65,10 @@ module.exports = Usuario;
 //         type: DataTypes.STRING,
 //         allowNull: false
 //     },
-//     perfil: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false
-//     }
+    // perfil: {
+    //     type: DataTypes.INTEGER,
+    //     allowNull: false
+    // }
 // });
 
 // module.exports = Usuario;

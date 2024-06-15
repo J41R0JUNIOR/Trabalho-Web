@@ -5,7 +5,10 @@ function cadastrarUsuario(req, res) {
         email: req.body.email,
         senha: req.body.senha,
         nome: req.body.nome,
-        data_nascimento: req.body.data_nascimento
+        cep: req.body.cep,
+        numeroAbrigo: req.body.numeroAbrigo,
+        complemento: req.body.complemento,
+        cnpj: req.body.cnpj
     }
     
     Usuario.create(usuario).then(()=>{

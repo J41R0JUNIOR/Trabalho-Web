@@ -1,4 +1,6 @@
 const Usuario = require('../model/usuario');
+const Animal = require('../model/animais_abrigo'); // Ensure correct model import
+
 
 function cadastrarUsuario(req, res) {
     let usuario = {
@@ -33,6 +35,17 @@ function listarUsuarios(req, res) {
     });
 }
 
+function listarAnimaisPorAbrigo(req, res) {
+    const usuarioId = req.params.id;
+    Animal.findAll({ where: { id_usuario: usuarioId } })
+        .then((animais) => {
+            res.render('animais.html', { usuarios: animais }); // Pass animais to animais.html
+        })
+        .catch((err) => {
+            res.json(err);
+        });
+}
+
 function logarView(req, res, estado){
     res.render('logar.html', { estado });
 }
@@ -60,5 +73,6 @@ module.exports = {
     listarUsuarios,
     logarView,
     criarContaView,
-    exibirDetalhesAbrigo
+    exibirDetalhesAbrigo,
+    listarAnimaisPorAbrigo
 };

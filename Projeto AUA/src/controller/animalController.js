@@ -21,6 +21,12 @@ async function homeView(req, res) {
     }
 }
 
+
+
+
+
+
+
 function listarAnimais(req, res) {
     const usuarioId = req.params.id;
     Animal.findAll({ where: { id_usuario: usuarioId } })
@@ -57,5 +63,6 @@ function cadastrarAnimal(req, res) {
 module.exports = {
     homeView,
     cadastrarAnimal,
-    listarAnimais
+    listarAnimais,
+    
 };

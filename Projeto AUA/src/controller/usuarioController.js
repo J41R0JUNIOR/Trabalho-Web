@@ -21,6 +21,10 @@ function cadastrarUsuario(req, res) {
     });
 }
 
+function indexView(req, res) {
+    res.render('index.html');
+}
+
 function listarUsuarios(req, res) {
     Usuario.findAll().then((usuarios) => {
         res.render("index.html", { usuarios });
@@ -37,9 +41,24 @@ function criarContaView(req, res){
     res.render('usuario_cadastro.html'); 
 }
 
+function exibirDetalhesAbrigo(req, res) {
+    const id = req.params.id;
+    Usuario.findByPk(id).then((usuario) => {
+        if (usuario) {
+            res.render('abrigo.html', { usuario });
+        } else {
+            res.status(404).send('Abrigo não encontrado');
+        }
+    }).catch((err) => {
+        res.status(500).send(err);
+    });
+}
+
 module.exports = {
+    indexView,
     cadastrarUsuario,
     listarUsuarios,
     logarView,
-    criarContaView
+    criarContaView,
+    exibirDetalhesAbrigo
 };

@@ -1,8 +1,6 @@
 const Animal = require('../model/animais_abrigo');
 
-function indexView(req, res) {
-    res.render('index.html');
-}
+
 
 async function homeView(req, res) {
     if (!req.session.usuario || !req.session.usuario.id) {
@@ -21,6 +19,17 @@ async function homeView(req, res) {
         console.error('Erro ao recuperar animais:', error);
         res.render('home.html', { erro_recuperar_animal: true });
     }
+}
+
+function listarAnimais(req, res) {
+    const usuarioId = req.params.id;
+    Animal.findAll({ where: { id_usuario: usuarioId } })
+        .then((animais) => {
+            res.render('animais.html', { animais });
+        })
+        .catch((err) => {
+            res.json(err);
+        });
 }
 
 function cadastrarAnimal(req, res) {
@@ -46,7 +55,7 @@ function cadastrarAnimal(req, res) {
 }
 
 module.exports = {
-    indexView,
     homeView,
-    cadastrarAnimal
+    cadastrarAnimal,
+    listarAnimais
 };

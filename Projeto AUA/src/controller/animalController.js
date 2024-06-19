@@ -21,12 +21,6 @@ async function homeView(req, res) {
     }
 }
 
-
-
-
-
-
-
 function listarAnimais(req, res) {
     const usuarioId = req.params.id;
     Animal.findAll({ where: { id_usuario: usuarioId } })
@@ -60,9 +54,27 @@ function cadastrarAnimal(req, res) {
         });
 }
 
+async function viewAnimal(req, res) {
+    const animalId = req.params.id;
+    
+    try {
+        const animal = await Animal.findOne({ where: { id: animalId } });
+        if (!animal) {
+            return res.status(404).render('error.html', { message: 'Animal não encontrado' });
+        }
+        res.render('animaisDetalhes.html', { animal: animal });
+       
+    } catch (error) {
+        console.error('Erro ao recuperar animal:', error);
+        res.status(500).render('error.html', { message: 'Erro ao recuperar animal' });
+    }
+}
+
+
+
 module.exports = {
     homeView,
     cadastrarAnimal,
     listarAnimais,
-    
+ 
 };

@@ -39,7 +39,7 @@ function listarAnimaisPorAbrigo(req, res) {
     const usuarioId = req.params.id;
     Animal.findAll({ where: { id_usuario: usuarioId } })
         .then((animais) => {
-            res.render('animais.html', { animais: animais }); // Pass animais to animais.html
+            res.render('animais.html', { usuarios: animais }); // Pass animais to animais.html
         })
         .catch((err) => {
             res.json(err);

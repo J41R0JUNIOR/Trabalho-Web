@@ -5,12 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Tela de Abrigos</title>
     <style>
         body {
             background-color: #f1f1f1;
-            font-family: sans-serif;
+            font-family: 'Roboto', sans-serif;
             transition: background-color 0.3s, color 0.3s;
         }
 
@@ -22,17 +23,23 @@
             align-items: center;
             background-color: #fff;
             transition: background-color 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
         }
 
         .logo {
             width: 50px;
             height: 50px;
-            background-color: #ccc;
+            background-color: #4CAF50;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 24px;
         }
+
 
         nav a {
             text-decoration: none;
@@ -82,11 +89,12 @@
             background-color: #fff;
             border: 1px solid #ccc;
             border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             transition: background-color 0.3s, border-color 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .image-placeholder {
@@ -117,7 +125,7 @@
             background-color: #4CAF50;
             border: none;
             color: white;
-            padding: 8px 16px;
+            padding: 10px 20px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
@@ -126,6 +134,9 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #388e3c;
         }
 
         /* Dark Mode Styles */
@@ -145,6 +156,10 @@
 
         body.dark-mode .slogan {
             color: #e0e0e0;
+        }
+
+        body.dark-mode .form-check-label {
+            color: #000000;
         }
 
         body.dark-mode .shelter-item {
@@ -168,16 +183,16 @@
 
 <body>
     <header class="header p-3 bg-light d-flex justify-content-between align-items-center">
-        <div class="logo">Logo</div>
+        <div class="logo">L</div>
         <nav class="d-flex align-items-center">
-            <a href="/" class="text-dark mx-2">Início</a>
-            <a href="#" class="text-dark mx-2">Pesquisar abrigo</a>
+            <a href="/" class="text-dark mx-2"><i class="fas fa-home"></i> Início</a>
+            <a href="#" class="text-dark mx-2"><i class="fas fa-search"></i> Pesquisar abrigo</a>
             <div class="d-flex align-items-center">
                 <div class="form-check form-switch d-inline-block mx-2">
                     <input class="form-check-input" type="checkbox" id="nightModeSwitch" />
                     <label class="form-check-label" for="nightModeSwitch">Modo noturno</label>
                 </div>
-                <a href="/logar_conta" class="btn btn-primary mx-2">Logar</a>
+                <a href="/logar_conta" class="btn btn-primary mx-2"><i class="fas fa-sign-in-alt"></i> Logar</a>
             </div>
         </nav>
     </header>
@@ -187,6 +202,9 @@
             {{#usuarios}}
             <li class="shelter-item d-flex align-items-center mb-2">
                 <div class="image-placeholder">
+                    <!-- <a href="/abrigo/{{id}}"><img src="{{perfil}}" alt="Imagem do abrigo"
+                        style="width: 50px; height: 50px; border-radius: 50%;"></a> -->
+
 
                         <a href="/abrigo/{{id}}"><img src="/Projeto AUA/public/img/logoAbrigo.jpg" alt=""
                             style="width: 50px; height: 50px; border-radius: 50%;"></a>

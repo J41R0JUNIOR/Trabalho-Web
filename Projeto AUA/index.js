@@ -30,4 +30,4 @@ db.sync(() => console.log(`Banco de dados conectado`));
 const app_port = 8080
 app.listen(app_port, function () {
     console.log('app rodando na porta ' + app_port)
-})
+}) 

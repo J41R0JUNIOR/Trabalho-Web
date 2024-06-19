@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(session({
     secret: 'secret-token',
     name: 'sessionId',  
-    resave: false,
+    resave: false, 
     saveUninitialized: false, 
     cookie: { secure: false }
 }))

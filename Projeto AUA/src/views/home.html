@@ -124,7 +124,11 @@
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                         <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Configurações </a></li>
                         <li><a class="dropdown-item" href="/sair"><i class="fas fa-sign-out-alt"></i> Sair </a></li>
-                        <li><a class="dropdown-item" href="/sair"><i class="fas fa-sign-out-alt"></i> Apagar Conta </a></li>
+                        <!-- <li><a class="dropdown-item" href="/remover"><i class="fas fa-sign-out-alt"></i> Apagar Conta </a></li>
+                          -->
+                          <form action="/remover_usuario/{{usuario}}" method="POST" onsubmit="return confirm('Tem certeza que deseja remover este usuario?');">
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Remover</button>
+                        </form>
                     </ul>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const database = require('../db');
+const Usuario = require('./usuario'); // Importe o modelo de Usuario
 
 const Animal = database.define('animal', {
     id_animal: {
@@ -10,7 +11,12 @@ const Animal = database.define('animal', {
     },
     id_usuario: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: Usuario,
+            key: 'id'
+        },
+        onDelete: 'CASCADE' // Isso garante que ao excluir um usuário, todos os animais associados a ele também serão excluídos
     },
     nome: {
         type: Sequelize.STRING,

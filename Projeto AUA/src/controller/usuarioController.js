@@ -23,6 +23,63 @@ function cadastrarUsuario(req, res) {
     });
 }
 
+// async function removerUsuario(req, res) {
+//     if (!req.session.usuario || !req.session.usuario.id) {
+//         return res.redirect('/');
+//     }
+
+//     const usuario = req.params.usuario;
+
+//     try {
+//         const deleted = await Usuario.destroy({
+//             where: {
+//                 id: req.session.usuario.id,
+//             }
+//         });
+
+//         if (deleted) {
+//             res.redirect('/home');
+//         } else {
+//             res.render('home.html', { erro_remover_usuario: true });
+//         }
+//     } catch (error) {
+//         console.error('Erro ao remover usuario:', error);
+//         res.render('home.html', { erro_remover_usuario: true });
+//     }
+// }
+
+async function removerUsuario(req, res) {
+    if (!req.session.usuario || !req.session.usuario.id) {
+        return res.redirect('/');
+    }
+
+    const usuarioId = req.session.usuario.id;
+
+    try {
+        await database.transaction(async (t) => {
+            await Animal.destroy({
+                where: {
+                    id_usuario: usuarioId
+                },
+                transaction: t
+            });
+
+            await Usuario.destroy({
+                where: {
+                    id: usuarioId
+                },
+                transaction: t
+            });
+        });
+
+        req.session.destroy(); 
+        res.redirect('/');
+    } catch (error) {
+        console.error('Erro ao remover usuário e seus animais:', error);
+        res.render('home.html', { erro_remover_usuario: true });
+    }
+}
+
 function indexView(req, res) {
     res.render('index.html');
 }
@@ -70,6 +127,7 @@ function exibirDetalhesAbrigo(req, res) {
 module.exports = {
     indexView,
     cadastrarUsuario,
+    removerUsuario,
     listarUsuarios,
     logarView,
     criarContaView,

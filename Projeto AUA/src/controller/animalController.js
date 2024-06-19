@@ -21,12 +21,6 @@ async function homeView(req, res) {
     }
 }
 
-
-
-
-
-
-
 function listarAnimais(req, res) {
     const usuarioId = req.params.id;
     Animal.findAll({ where: { id_usuario: usuarioId } })
@@ -60,9 +54,51 @@ function cadastrarAnimal(req, res) {
         });
 }
 
+function exibirDetalhesAnimal(req, res){
+    const id = req.params.id_animal;
+    Animal.findByPk(id).then((animal) => {
+        if (animal) {
+            res.render('animaisDetalhes.html', {animal});
+        }else {
+            res.status(404).send('Animal não encontrado');
+        }
+    }).catch((err) => {
+        res.status(500).send(err);
+    });
+}
+
+async function removerAnimal(req, res) {
+    if (!req.session.usuario || !req.session.usuario.id) {
+        return res.redirect('/');
+    }
+
+    const animalId = req.params.id;
+
+    try {
+        const deleted = await Animal.destroy({
+            where: {
+                id_animal: animalId,
+                id_usuario: req.session.usuario.id
+            }
+        });
+
+        if (deleted) {
+            res.redirect('/home');
+        } else {
+            res.render('home.html', { erro_remover_animal: true });
+        }
+    } catch (error) {
+        console.error('Erro ao remover animal:', error);
+        res.render('home.html', { erro_remover_animal: true });
+    }
+}
+
+
+
 module.exports = {
     homeView,
     cadastrarAnimal,
     listarAnimais,
-    
+    exibirDetalhesAnimal,
+    removerAnimal
 };

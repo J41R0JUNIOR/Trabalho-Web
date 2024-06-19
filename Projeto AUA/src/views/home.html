@@ -63,6 +63,25 @@
             background-color: #388e3c;
         }
 
+        .btn-danger {
+            background-color: #d9534f;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-danger:hover {
+            background-color: #c9302c;
+        }
+
         .slogan {
             font-size: 28px;
             margin: 30px 0;
@@ -127,6 +146,9 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{especie}}</h5>
                                     <p class="card-text">{{descricao}}</p>
+                                    <form action="/remover_animal/{{id_animal}}" method="POST" onsubmit="return confirm('Tem certeza que deseja remover este animal?');">
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Remover</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -137,27 +159,6 @@
         </div>
     </div>
 
-                <!-- <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Espécie</th>
-                            <th scope="col">Descrição</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each animais}}
-                        <tr>
-                            <th scope="row">{{id_animal}}</th>
-                            <td>{{nome}}</td>
-                            <td>{{especie}}</td>
-                            <td>{{descricao}}</td>
-                        </tr>
-                        {{/each animais}}
-                    </tbody>
-                </table> -->
-    
     <!-- Modal Novo Animal -->
     <div class="modal fade" id="novoAnimalModal" tabindex="-1" aria-labelledby="novoAnimalModalLabel" aria-hidden="true">
         <div class="modal-dialog">

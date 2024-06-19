@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Tela de Abrigos</title>
+    <style>
+        body {
+            background-color: #f1f1f1;
+            font-family: sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header {
+            border-bottom: 2px solid #ccc;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background-color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            margin: 0 10px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .form-check-input {
+            width: 40px;
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 20px;
+            border: none;
+            margin-right: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-check-input:checked {
+            background-color: #4CAF50;
+            position: relative;
+        }
+
+        .form-check-input:checked::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(10%, -50%);
+            width: 15px;
+            height: 15px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .slogan {
+            font-size: 24px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .shelter-item {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .image-placeholder {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .shelter-name {
+            font-weight: bold;
+            flex-grow: 1;
+            transition: color 0.3s;
+        }
+
+        .container {
+            padding: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .header {
+            background-color: #1e1e1e;
+            border-bottom-color: #444;
+        }
+
+        body.dark-mode nav a {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .slogan {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .shelter-item {
+            background-color: #2c2c2c;
+            border-color: #444;
+        }
+
+        body.dark-mode .image-placeholder {
+            background-color: #555;
+        }
+
+        body.dark-mode .shelter-name {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .btn-primary {
+            background-color: #388e3c;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header p-3 bg-light d-flex justify-content-between align-items-center">
+        <div class="logo">Logo</div>
+        <nav class="d-flex align-items-center">
+            <a href="/" class="text-dark mx-2">Início</a>
+            <a href="#" class="text-dark mx-2">Pesquisar abrigo</a>
+            <div class="d-flex align-items-center">
+                <div class="form-check form-switch d-inline-block mx-2">
+                    <input class="form-check-input" type="checkbox" id="nightModeSwitch" />
+                    <label class="form-check-label" for="nightModeSwitch">Modo noturno</label>
+                </div>
+                <a href="/logar_conta" class="btn btn-primary mx-2">Logar</a>
+            </div>
+        </nav>
+    </header>
+    <div class="container mt-5">
+        <div class="slogan text-center">Lista de abrigos</div>
+        <ul class="list-unstyled">
+            {{#usuarios}}
+            <li class="shelter-item d-flex align-items-center mb-2">
+                <div class="image-placeholder">
+                    <!-- <a href="/abrigo/{{id}}"><img src="{{perfil}}" alt="Imagem do abrigo"
+                        style="width: 50px; height: 50px; border-radius: 50%;"></a> -->
+
+
+                        <a href="/abrigo/{{id}}"><img src="/Projeto AUA/public/img/logoAbrigo.jpg" alt=""
+                            style="width: 50px; height: 50px; border-radius: 50%;"></a>
+
+
+                </div>
+                <div class="shelter-name"><a href="/abrigo/{{id}}">{{nome}}</a></div>
+            </li>
+            {{/usuarios}}
+        </ul>
+    </div>
+
+    <script>
+        const nightModeSwitch = document.getElementById('nightModeSwitch');
+        const body = document.body;
+
+        nightModeSwitch.addEventListener('change', function () {
+            if (this.checked) {
+                body.classList.add('dark-mode');
+            } else {
+                body.classList.remove('dark-mode');
+            }
+        });
+    </script>
+</body>
+
+</html>
+ 

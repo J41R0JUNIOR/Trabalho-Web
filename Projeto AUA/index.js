@@ -17,7 +17,7 @@ app.use(session({
     secret: 'secret-token',
     name: 'sessionId',  
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: false, 
     cookie: { secure: false }
 }))
 

@@ -1,11 +1,17 @@
 const Animal = require('../model/animais_abrigo');
-
+const Usuario = require('../model/usuario');
 
 
 async function homeView(req, res) {
     if (!req.session.usuario || !req.session.usuario.id) {
         return res.redirect('/');
     }
+
+    const usuario = await Usuario.findOne({
+        where: {
+            id: req.session.usuario.id
+        }
+    });
 
     try {
         const animais = await Animal.findAll({
@@ -14,7 +20,7 @@ async function homeView(req, res) {
             }
         });
         console.log(animais);
-        res.render('home.html', { animais: animais });
+        res.render('home.html', { animais: animais, usuario: usuario});
     } catch (error) {
         console.error('Erro ao recuperar animais:', error);
         res.render('home.html', { erro_recuperar_animal: true });

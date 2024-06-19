@@ -6,7 +6,7 @@ async function autenticar(req, res){
         where: {
             email: req.body.email,
             senha: req.body.senha
-        }
+        } 
     });
 
     if(usuario != null){

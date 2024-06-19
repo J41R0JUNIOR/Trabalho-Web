@@ -116,14 +116,15 @@
         <div class="header mt-3">
             <div class="logo">Sistema de Estoque</div>
             <div class="d-flex align-items-center">
-                <span>Olá, usuário</span>
+                <span>Olá, {{usuario.nome}}</span>
                 <div class="btn-group ms-3" role="group">
                     <button id="btnGroupDrop1" type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Configurações</a></li>
-                        <li><a class="dropdown-item" href="/sair"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Configurações </a></li>
+                        <li><a class="dropdown-item" href="/sair"><i class="fas fa-sign-out-alt"></i> Sair </a></li>
+                        <li><a class="dropdown-item" href="/sair"><i class="fas fa-sign-out-alt"></i> Apagar Conta </a></li>
                     </ul>
                 </div>
             </div>

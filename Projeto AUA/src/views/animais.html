@@ -24,22 +24,15 @@
             background-color: #fff;
             transition: background-color 0.3s;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
         }
 
         .logo {
             width: 50px;
             height: 50px;
-            /* background-color: #4CAF50; */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            color: #fff;
-            border-radius: 50%;
-            font-size: 24px;
         }
-
 
         nav a {
             text-decoration: none;
@@ -135,6 +128,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         .btn-primary:hover {
             background-color: #388e3c;
         }
@@ -159,7 +153,7 @@
         }
 
         body.dark-mode .form-check-label {
-            color: #000000;
+            color: #e0e0e0;
         }
 
         body.dark-mode .shelter-item {
@@ -202,42 +196,34 @@
         </nav>
     </header>
 
-
-
-<div class="container mt-5">
-    <div class="slogan text-center">Lista de animais</div>
-    <ul class="list-unstyled">
-        {{#animais}}
-        <li class="shelter-item d-flex align-items-center mb-2">
-            <div class="image-placeholder">
-
-                <img src="{{perfil}}" alt="Imagem do animal" style="width: 50px; height: 50px; border-radius: 50%;"> 
-                 <!-- <div class="animal-name">{{nome}}</div> -->
-                
-                 <div class="animal-name">
+    <div class="container mt-5">
+        <div class="slogan text-center">Lista de abrigos</div>
+        <ul class="list-unstyled">
+            {{#animais}}
+            <li class="shelter-item d-flex align-items-center mb-2">
+                <div class="image-placeholder">
+                    <img src="{{perfil}}" alt="Imagem do animal" style="width: 50px; height: 50px; border-radius: 50%;">
+                </div>
+                <div class="shelter-name">
                     <a href="/animaisDetalhes/{{id_animal}}">{{nome}}</a>
-                 </div>
-            </div>
-            
-        </li>
-        {{/animais}}
+                </div>
+            </li>
+            {{/animais}}
+        </ul>
+    </div>
 
-    
-    </ul>
-</div>
+    <script>
+        const nightModeSwitch = document.getElementById('nightModeSwitch');
+        const body = document.body;
 
-<script>
-    const nightModeSwitch = document.getElementById('nightModeSwitch');
-    const body = document.body;
-
-    nightModeSwitch.addEventListener('change', function () {
-        if (this.checked) {
-            body.classList.add('dark-mode');
-        } else {
-            body.classList.remove('dark-mode');
-        }
-    });
-</script>
+        nightModeSwitch.addEventListener('change', function () {
+            if (this.checked) {
+                body.classList.add('dark-mode');
+            } else {
+                body.classList.remove('dark-mode');
+            }
+        });
+    </script>
 </body>
 
 </html>

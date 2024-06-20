@@ -80,6 +80,7 @@
             border-radius: 8px;
             background-color: #fff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
         }
 
         .imagem-abrigo {
@@ -91,6 +92,27 @@
 
         .detalhes-abrigo {
             margin-top: 20px;
+        }
+
+
+        /* Switch do modo noturno (segundo código) */
+        .form-check-input:checked {
+            background-color: #333;
+        }
+
+        .form-check-label {
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Estilos adicionais para o layout */
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .imagem-abrigo {
+            margin-bottom: 20px;
         }
 
         .btn-primary {
@@ -138,6 +160,33 @@
 
         body.dark-mode .btn-primary {
             background-color: #388e3c;
+        }
+
+        /* Estilos para o modo noturno */
+        .dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .dark-mode .header {
+            background-color: #444;
+            border-bottom: 2px solid #555;
+        }
+
+        .dark-mode nav a {
+            color: #fff;
+        }
+
+        .dark-mode .container {
+            background-color: #444;
+        }
+
+        .dark-mode .btn-primary {
+            background-color: #6b8e23;
+        }
+
+        .dark-mode .form-check-label {
+            color: #fff;
         }
     </style>
 </head>
@@ -187,5 +236,6 @@
             }
         });
     </script>
+
 </body>
 </html>

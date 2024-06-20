@@ -16,8 +16,8 @@ app.use(express.static(__dirname + '/public'));
 app.use(session({
     secret: 'secret-token',
     name: 'sessionId',  
-    resave: false,
-    saveUninitialized: false,
+    resave: false, 
+    saveUninitialized: false, 
     cookie: { secure: false }
 }))
 
@@ -27,7 +27,7 @@ app.use('/', require('./src/routes/autenticacaoRoutes'));
 
 db.sync(() => console.log(`Banco de dados conectado`)); 
 
-const app_port = 8082
+const app_port = 8081
 app.listen(app_port, function () {
     console.log('app rodando na porta ' + app_port)
-})
+}) 

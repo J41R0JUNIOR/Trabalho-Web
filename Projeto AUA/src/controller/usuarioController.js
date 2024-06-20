@@ -1,6 +1,6 @@
 const Usuario = require('../model/usuario');
-const Animal = require('../model/animais_abrigo'); // Ensure correct model import
-
+const Animal = require('../model/animais_abrigo'); // Certifique-se de que a importação está correta
+const sequelize = require('../db'); // Importe o Sequelize corretamente
 
 function cadastrarUsuario(req, res) {
     let usuario = {
@@ -14,13 +14,44 @@ function cadastrarUsuario(req, res) {
     };
 
     Usuario.create(usuario).then(() => {
-        // res.render('usuario_cadastro.html', { sucesso: true });
-        sucesso = true
+        sucesso = true;
         listarUsuarios(req, res, sucesso);
     }).catch((err) => {
         console.log(err);
         res.render('usuario_cadastro.html', { erro: true });
     });
+}
+
+async function removerUsuario(req, res) {
+    if (!req.session.usuario || !req.session.usuario.id) {
+        return res.redirect('/');
+    }
+
+    const usuarioId = req.session.usuario.id;
+
+    try {
+        await sequelize.transaction(async (t) => {
+            await Animal.destroy({
+                where: {
+                    id_usuario: usuarioId
+                },
+                transaction: t
+            });
+
+            await Usuario.destroy({
+                where: {
+                    id: usuarioId
+                },
+                transaction: t
+            });
+        });
+
+        req.session.destroy(); 
+        res.redirect('/');
+    } catch (error) {
+        console.error('Erro ao remover usuário e seus animais:', error);
+        res.render('home.html', { erro_remover_usuario: true });
+    }
 }
 
 function indexView(req, res) {
@@ -39,7 +70,7 @@ function listarAnimaisPorAbrigo(req, res) {
     const usuarioId = req.params.id;
     Animal.findAll({ where: { id_usuario: usuarioId } })
         .then((animais) => {
-            res.render('animais.html', { usuarios: animais }); // Pass animais to animais.html
+            res.render('animais.html', { animais: animais });
         })
         .catch((err) => {
             res.json(err);
@@ -70,6 +101,7 @@ function exibirDetalhesAbrigo(req, res) {
 module.exports = {
     indexView,
     cadastrarUsuario,
+    removerUsuario,
     listarUsuarios,
     logarView,
     criarContaView,

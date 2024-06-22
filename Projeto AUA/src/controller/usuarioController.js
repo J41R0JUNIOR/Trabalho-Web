@@ -22,6 +22,31 @@ function cadastrarUsuario(req, res) {
     });
 }
 
+async function editarUsuario(req, res) {
+    if (!req.session.usuario || !req.session.usuario.id) {
+        return res.redirect('/');
+    }
+
+    const usuarioId = req.params.id;
+    const { nome, email, cep, numero, complemento, cnpj } = req.body;
+
+    try {
+        const [updated] = await Usuario.update(
+            { nome, email, cep, numero, complemento, cnpj },
+            { where: { id: usuarioId, id_usuario: req.session.usuario.id } }
+        );
+
+        if (updated) {
+            res.json({ success: true });
+        } else {
+            res.json({ success: false });
+        }
+    } catch (error) {
+        console.error('Erro ao editar usuário:', error);
+        res.json({ success: false });
+    }
+}
+
 async function removerUsuario(req, res) {
     if (!req.session.usuario || !req.session.usuario.id) {
         return res.redirect('/');
@@ -106,5 +131,6 @@ module.exports = {
     logarView,
     criarContaView,
     exibirDetalhesAbrigo,
-    listarAnimaisPorAbrigo
+    listarAnimaisPorAbrigo,
+    editarUsuario
 };

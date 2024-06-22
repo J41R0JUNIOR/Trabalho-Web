@@ -99,6 +99,31 @@ async function removerAnimal(req, res) {
     }
 }
 
+async function editarAnimal(req, res) {
+    if (!req.session.usuario || !req.session.usuario.id) {
+        return res.redirect('/');
+    }
+
+    const animalId = req.params.id;
+    const { nome, especie, descricao } = req.body;
+
+    try {
+        const [updated] = await Animal.update(
+            { nome, especie, descricao },
+            { where: { id_animal: animalId, id_usuario: req.session.usuario.id } }
+        );
+
+        if (updated) {
+            res.json({ success: true });
+        } else {
+            res.json({ success: false });
+        }
+    } catch (error) {
+        console.error('Erro ao editar animal:', error);
+        res.json({ success: false });
+    }
+}
+
 
 
 module.exports = {
@@ -106,5 +131,6 @@ module.exports = {
     cadastrarAnimal,
     listarAnimais,
     exibirDetalhesAnimal,
-    removerAnimal
+    removerAnimal,
+    editarAnimal
 };

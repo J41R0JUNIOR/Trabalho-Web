@@ -124,11 +124,14 @@
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                         <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Configurações </a></li>
                         <li><a class="dropdown-item" href="/sair"><i class="fas fa-sign-out-alt"></i> Sair </a></li>
-                        <!-- <li><a class="dropdown-item" href="/remover"><i class="fas fa-sign-out-alt"></i> Apagar Conta </a></li>
-                          -->
-                          <form action="/remover_usuario/{{usuario}}" method="POST" onsubmit="return confirm('Tem certeza que deseja remover este usuario?');">
-                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Remover</button>
+                        
+                        <form action="/remover_usuario/{{usuario}}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este usuario?');">
+                            <button type="submit" class="dropdown-item"><i class="fas fa-trash-alt"></i> Deletar Conta</button>
                         </form>
+
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal" data-id="{{usuario.id}}" data-nome="{{usuario.nome}}" data-email="{{usuario.email}}" data-cep="{{usuario.cep}}" data-numero="{{usuario.numero}}" data-complemento="{{usuario.complemento}}" data-cnpj="{{usuario.cnpj}}">
+                            <i class="fas fa-edit"></i> Editar Perfil
+                        </button>
                     </ul>
                 </div>
             </div>
@@ -151,9 +154,15 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{especie}}</h5>
                                     <p class="card-text">{{descricao}}</p>
-                                    <form action="/remover_animal/{{id_animal}}" method="POST" onsubmit="return confirm('Tem certeza que deseja remover este animal?');">
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Remover</button>
-                                    </form>
+                                    <div class="d-flex">
+                                        <form action="/remover_animal/{{id_animal}}" method="POST" onsubmit="return confirm('Tem certeza que deseja remover este animal?');">
+                                            <button type="submit" class="btn btn-danger me-2"><i class="fas fa-trash-alt"></i> Remover</button>
+                                        </form>
+                                        
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarAnimalModal" data-id="{{id_animal}}" data-nome="{{nome}}" data-especie="{{especie}}" data-descricao="{{descricao}}">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -195,6 +204,92 @@
             </div>
         </div>
     </div>
-</body>
 
+    <!-- Modal Editar Animal -->
+    <div class="modal fade" id="editarAnimalModal" tabindex="-1" aria-labelledby="editarAnimalModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarAnimalModalLabel">Editar Animal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editarAnimalForm" action="/editar_animal" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" id="editar-id" name="id">
+                        <div class="mb-3">
+                            <label for="editar-nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="editar-nome" name="nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editar-especie" class="form-label">Espécie</label>
+                            <input type="text" class="form-control" id="editar-especie" name="especie" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editar-descricao" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="editar-descricao" name="descricao" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const editarAnimalModal = document.getElementById('editarAnimalModal');
+        editarAnimalModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const id = button.getAttribute('data-id');
+            const nome = button.getAttribute('data-nome');
+            const especie = button.getAttribute('data-especie');
+            const descricao = button.getAttribute('data-descricao');
+
+            const modalTitle = editarAnimalModal.querySelector('.modal-title');
+            const idInput = editarAnimalModal.querySelector('#editar-id');
+            const nomeInput = editarAnimalModal.querySelector('#editar-nome');
+            const especieInput = editarAnimalModal.querySelector('#editar-especie');
+            const descricaoInput = editarAnimalModal.querySelector('#editar-descricao');
+
+            modalTitle.textContent = `Editar ${nome}`;
+            idInput.value = id;
+            nomeInput.value = nome;
+            especieInput.value = especie;
+            descricaoInput.value = descricao;
+        });
+
+        document.getElementById('editarAnimalForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const id = document.getElementById('editar-id').value;
+            const nome = document.getElementById('editar-nome').value;
+            const especie = document.getElementById('editar-especie').value;
+            const descricao = document.getElementById('editar-descricao').value;
+
+            fetch(`/editar_animal/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nome: nome,
+                    especie: especie,
+                    descricao: descricao,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Erro ao editar o animal.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        });
+    </script>
+</body>
 </html>

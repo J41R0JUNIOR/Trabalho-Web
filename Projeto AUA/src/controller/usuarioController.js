@@ -33,7 +33,7 @@ async function editarUsuario(req, res) {
     try {
         const [updated] = await Usuario.update(
             { nome, email, cep, numero, complemento, cnpj },
-            { where: { id: usuarioId, id_usuario: req.session.usuario.id } }
+            { where: { id: usuarioId } } // Removendo id_usuario para permitir edição pelo próprio usuário
         );
 
         if (updated) {
@@ -46,6 +46,7 @@ async function editarUsuario(req, res) {
         res.json({ success: false });
     }
 }
+
 
 async function removerUsuario(req, res) {
     if (!req.session.usuario || !req.session.usuario.id) {

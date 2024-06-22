@@ -122,16 +122,17 @@
                         <i class="fas fa-user"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Configurações </a></li>
+                        <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal" data-id="{{usuario.id}}" data-nome="{{usuario.nome}}" data-email="{{usuario.email}}" data-cep="{{usuario.cep}}" data-numero="{{usuario.numero}}" data-complemento="{{usuario.complemento}}" data-cnpj="{{usuario.cnpj}}">
+                            <i class="fas fa-edit"></i> Editar Perfil
+                        </button>
                         <li><a class="dropdown-item" href="/sair"><i class="fas fa-sign-out-alt"></i> Sair </a></li>
                         
                         <form action="/remover_usuario/{{usuario}}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este usuario?');">
                             <button type="submit" class="dropdown-item"><i class="fas fa-trash-alt"></i> Deletar Conta</button>
                         </form>
 
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal" data-id="{{usuario.id}}" data-nome="{{usuario.nome}}" data-email="{{usuario.email}}" data-cep="{{usuario.cep}}" data-numero="{{usuario.numero}}" data-complemento="{{usuario.complemento}}" data-cnpj="{{usuario.cnpj}}">
-                            <i class="fas fa-edit"></i> Editar Perfil
-                        </button>
+                        
+
                     </ul>
                 </div>
             </div>
@@ -238,7 +239,122 @@
         </div>
     </div>
 
-    <script>
+<!-- Modal Editar Usuário -->
+<div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarUsuarioModalLabel">Editar Usuário</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editarUsuarioForm" action="/editar_usuario/{{usuario.id}}" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" id="editar-usuario-id" name="id">
+                    <div class="mb-3">
+                        <label for="editar-nome-usuario" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="editar-nome-usuario" name="nome" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editar-email-usuario" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="editar-email-usuario" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editar-cep-usuario" class="form-label">CEP</label>
+                        <input type="text" class="form-control" id="editar-cep-usuario" name="cep" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editar-numero-usuario" class="form-label">Número</label>
+                        <input type="text" class="form-control" id="editar-numero-usuario" name="numero" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editar-complemento-usuario" class="form-label">Complemento</label>
+                        <input type="text" class="form-control" id="editar-complemento-usuario" name="complemento">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editar-cnpj-usuario" class="form-label">CNPJ</label>
+                        <input type="text" class="form-control" id="editar-cnpj-usuario" name="cnpj">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    const editarUsuarioModal = document.getElementById('editarUsuarioModal');
+    editarUsuarioModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const id = button.getAttribute('data-id');
+        const nome = button.getAttribute('data-nome');
+        const email = button.getAttribute('data-email');
+        const cep = button.getAttribute('data-cep');
+        const numero = button.getAttribute('data-numero');
+        const complemento = button.getAttribute('data-complemento');
+        const cnpj = button.getAttribute('data-cnpj');
+
+        const idInput = editarUsuarioModal.querySelector('#editar-usuario-id');
+        const nomeInput = editarUsuarioModal.querySelector('#editar-nome-usuario');
+        const emailInput = editarUsuarioModal.querySelector('#editar-email-usuario');
+        const cepInput = editarUsuarioModal.querySelector('#editar-cep-usuario');
+        const numeroInput = editarUsuarioModal.querySelector('#editar-numero-usuario');
+        const complementoInput = editarUsuarioModal.querySelector('#editar-complemento-usuario');
+        const cnpjInput = editarUsuarioModal.querySelector('#editar-cnpj-usuario');
+
+        idInput.value = id;
+        nomeInput.value = nome;
+        emailInput.value = email;
+        cepInput.value = cep;
+        numeroInput.value = numero;
+        complementoInput.value = complemento;
+        cnpjInput.value = cnpj;
+    });
+
+    document.getElementById('editarUsuarioForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const id = document.getElementById('editar-usuario-id').value;
+        const nome = document.getElementById('editar-nome-usuario').value;
+        const email = document.getElementById('editar-email-usuario').value;
+        const cep = document.getElementById('editar-cep-usuario').value;
+        const numero = document.getElementById('editar-numero-usuario').value;
+        const complemento = document.getElementById('editar-complemento-usuario').value;
+        const cnpj = document.getElementById('editar-cnpj-usuario').value;
+
+        fetch(`/editar_usuario/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                nome: nome,
+                email: email,
+                cep: cep,
+                numero: numero,
+                complemento: complemento,
+                cnpj: cnpj,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Erro ao editar o usuário.');
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+    });
+
+
+
         const editarAnimalModal = document.getElementById('editarAnimalModal');
         editarAnimalModal.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
